@@ -883,7 +883,7 @@ conf_set_listen_defer_accept(void *data)
 }
 
 static void
-conf_set_listen_port_both(void *data, int ssl)
+conf_set_listen_port_both(void *data, int ssl, int websocket)
 {
 	conf_parm_t *args = data;
 	for (; args; args = args->next)
@@ -896,9 +896,9 @@ conf_set_listen_port_both(void *data, int ssl)
 		}
                 if(listener_address == NULL)
                 {
-			add_listener(args->v.number, listener_address, AF_INET, ssl, yy_defer_accept);
+			add_listener(args->v.number, listener_address, AF_INET, ssl, websocket, yy_defer_accept);
 #ifdef RB_IPV6
-			add_listener(args->v.number, listener_address, AF_INET6, ssl, yy_defer_accept);
+			add_listener(args->v.number, listener_address, AF_INET6, ssl, websocket, yy_defer_accept);
 #endif
                 }
 		else
@@ -911,7 +911,7 @@ conf_set_listen_port_both(void *data, int ssl)
 #endif
 				family = AF_INET;
 		
-			add_listener(args->v.number, listener_address, family, ssl, yy_defer_accept);
+			add_listener(args->v.number, listener_address, family, ssl, websocket, yy_defer_accept);
                 
                 }
 
@@ -921,13 +921,25 @@ conf_set_listen_port_both(void *data, int ssl)
 static void
 conf_set_listen_port(void *data)
 {
-	conf_set_listen_port_both(data, 0);
+	conf_set_listen_port_both(data, /* ssl */ 0, /* websocket */ 0);
 }
 
 static void
 conf_set_listen_sslport(void *data)
 {
-	conf_set_listen_port_both(data, 1);
+	conf_set_listen_port_both(data, /* ssl */ 1, /* websocket */ 0);
+}
+
+static void
+conf_set_listen_websocketport(void *data)
+{
+	conf_set_listen_port_both(data, /* ssl */ 0, /* websocket */ 1);
+}
+
+static void
+conf_set_listen_websocketsslport(void *data)
+{
+	conf_set_listen_port_both(data, /* ssl */ 1, /* websocket */ 1);
 }
 
 static void
@@ -2411,6 +2423,8 @@ newconf_init()
 	add_conf_item("listen", "defer_accept", CF_YESNO, conf_set_listen_defer_accept);
 	add_conf_item("listen", "port", CF_INT | CF_FLIST, conf_set_listen_port);
 	add_conf_item("listen", "sslport", CF_INT | CF_FLIST, conf_set_listen_sslport);
+	add_conf_item("listen", "websocketport", CF_INT | CF_FLIST, conf_set_listen_websocketport);
+	add_conf_item("listen", "websocketsslport", CF_INT | CF_FLIST, conf_set_listen_websocketsslport);
 	add_conf_item("listen", "ip", CF_QSTRING, conf_set_listen_address);
 	add_conf_item("listen", "host", CF_QSTRING, conf_set_listen_address);
 

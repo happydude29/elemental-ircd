@@ -409,6 +409,7 @@ struct ListClient
 #define LFLAGS_SSL		0x00000001
 #define LFLAGS_FLUSH		0x00000002
 #define LFLAGS_CORK		0x00000004
+#define LFLAGS_WEBSOCKET	0x00000008
 
 /* umodes, settable flags */
 /* lots of this moved to snomask -- jilles */
@@ -494,6 +495,10 @@ struct ListClient
 #define IsSSL(x)		((x)->localClient->localflags & LFLAGS_SSL)
 #define SetSSL(x)		((x)->localClient->localflags |= LFLAGS_SSL)
 #define ClearSSL(x)		((x)->localClient->localflags &= ~LFLAGS_SSL)
+
+#define IsWebSocket(x)    ((x)->localClient->localflags & LFLAGS_WEBSOCKET)
+#define SetWebSocket(x)  ((x)->localClient->localflags |= LFLAGS_WEBSOCKET)
+#define ClearWebSocket(x)  ((x)->localClient->localflags &= ~LFLAGS_WEBSOCKET)
 
 #define IsFlush(x)		((x)->localClient->localflags & LFLAGS_FLUSH)
 #define SetFlush(x)		((x)->localClient->localflags |= LFLAGS_FLUSH)
