@@ -469,7 +469,7 @@ register_local_user(struct Client *client_p, struct Client *source_p, const char
         ServerStats.is_ref++;
         sendto_one_notice(source_p, ":*** Your username is invalid. Please make sure that your username contains "
                           "only alphanumeric characters.");
-        rb_sprintf(tmpstr2, "Invalid username [%s]", source_p->username);
+        sprintf(tmpstr2, "Invalid username [%s]", source_p->username);
         exit_client(client_p, source_p, &me, tmpstr2);
         return (CLIENT_EXITED);
     }
