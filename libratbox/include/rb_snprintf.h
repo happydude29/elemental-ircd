@@ -38,26 +38,9 @@
 /*
  * rb_sprintf - optimized sprintf
  */
-#ifdef __GNUC__
-int
-rb_sprintf(char *str, const char *fmt, ...)
-__attribute((format(printf, 2, 3)));
-int rb_snprintf(char *str, const size_t size, const char *, ...)
-__attribute__ ((format(printf, 3, 4)));
-int rb_sprintf_append(char *str, const char *format, ...) __attribute((format(printf, 2, 3)));
-int rb_snprintf_append(char *str, size_t len, const char *format, ...)
-__attribute__ ((format(printf, 3, 4)));
-#else
-int rb_sprintf(char *str, const char *format, ...);
-int rb_snprintf(char *str, const size_t size, const char *, ...);
-int rb_sprintf_append(char *str, const char *format, ...);
-int rb_snprintf_append(char *str, const size_t size, const char *, ...);
-
-#endif
-
-int rb_vsnprintf(char *str, const size_t size, const char *fmt, va_list args);
-int rb_vsprintf(char *str, const char *fmt, va_list args);
-int rb_vsnprintf_append(char *str, const size_t size, const char *fmt, va_list args);
-int rb_vsprintf_append(char *str, const char *fmt, va_list args);
+int sprintf_append(char *str, const char *format, ...);
+int snprintf_append(char *str, const size_t size, const char *, ...);
+int vsnprintf_append(char *str, const size_t size, const char *fmt, va_list args);
+int vsprintf_append(char *str, const char *fmt, va_list args);
 
 #endif /* SPRINTF_IRC */

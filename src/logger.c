@@ -165,7 +165,7 @@ ilog(ilogfile dest, const char *format, ...)
         return;
 
     va_start(args, format);
-    rb_vsnprintf(buf, sizeof(buf), format, args);
+    vsnprintf(buf, sizeof(buf), format, args);
     va_end(args);
 
     snprintf(buf2, sizeof(buf2), "%s %s\n",
@@ -196,7 +196,7 @@ inotice(const char *format, ...)
     va_list args;
 
     va_start(args, format);
-    rb_vsnprintf(buf, sizeof(buf), format, args);
+    vsnprintf(buf, sizeof(buf), format, args);
     va_end(args);
 
     _iprint("notice", buf);
@@ -211,7 +211,7 @@ iwarn(const char *format, ...)
     va_list args;
 
     va_start(args, format);
-    rb_vsnprintf(buf, sizeof(buf), format, args);
+    vsnprintf(buf, sizeof(buf), format, args);
     va_end(args);
 
     _iprint("warning", buf);
@@ -226,7 +226,7 @@ ierror(const char *format, ...)
     va_list args;
 
     va_start(args, format);
-    rb_vsnprintf(buf, sizeof(buf), format, args);
+    vsnprintf(buf, sizeof(buf), format, args);
     va_end(args);
 
     _iprint("error", buf);

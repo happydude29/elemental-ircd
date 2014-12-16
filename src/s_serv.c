@@ -29,6 +29,8 @@
 #include <openssl/rsa.h>
 #endif
 
+#include <rb_snprintf.h>
+
 #include "s_serv.h"
 #include "class.h"
 #include "client.h"
@@ -704,7 +706,7 @@ show_capabilities(struct Client *target_p)
 
     for (cap = captab; cap->cap; ++cap) {
         if(cap->cap & target_p->serv->caps)
-            rb_snprintf_append(msgbuf, sizeof(msgbuf), " %s", cap->name);
+            snprintf_append(msgbuf, sizeof(msgbuf), " %s", cap->name);
     }
 
     return msgbuf + 1;

@@ -45,7 +45,7 @@ mlog(const char *errstr, ...)
         char buf[256];
         va_list ap;
         va_start(ap, errstr);
-        rb_vsnprintf(buf, sizeof(buf), errstr, ap);
+        vsnprintf(buf, sizeof(buf), errstr, ap);
         va_end(ap);
         error_cb(buf);
     } else

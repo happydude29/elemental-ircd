@@ -131,7 +131,7 @@ rb_lib_log(const char *format, ...)
     if(rb_log == NULL)
         return;
     va_start(args, format);
-    rb_vsnprintf(errbuf, sizeof(errbuf), format, args);
+    vsnprintf(errbuf, sizeof(errbuf), format, args);
     va_end(args);
     rb_log(errbuf);
 }
@@ -143,7 +143,7 @@ rb_lib_die(const char *format, ...)
     if(rb_die == NULL)
         abort();
     va_start(args, format);
-    rb_vsnprintf(errbuf, sizeof(errbuf), format, args);
+    vsnprintf(errbuf, sizeof(errbuf), format, args);
     va_end(args);
     rb_die(errbuf);
 }
@@ -155,7 +155,7 @@ rb_lib_restart(const char *format, ...)
     if(rb_restart == NULL)
         abort();
     va_start(args, format);
-    rb_vsnprintf(errbuf, sizeof(errbuf), format, args);
+    vsnprintf(errbuf, sizeof(errbuf), format, args);
     va_end(args);
     rb_restart(errbuf);
 }
