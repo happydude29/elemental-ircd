@@ -263,11 +263,11 @@ relay_kill(struct Client *one, struct Client *source_p,
     char buffer[BUFSIZE];
 
     if(MyClient(source_p))
-        rb_snprintf(buffer, sizeof(buffer),
+        snprintf(buffer, sizeof(buffer),
                     "%s!%s!%s!%s (%s)",
                     me.name, source_p->host, source_p->username, source_p->name, reason);
     else
-        rb_snprintf(buffer, sizeof(buffer), "%s %s", inpath, reason);
+        snprintf(buffer, sizeof(buffer), "%s %s", inpath, reason);
 
     RB_DLINK_FOREACH(ptr, serv_list.head) {
         client_p = ptr->data;

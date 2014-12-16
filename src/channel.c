@@ -853,7 +853,7 @@ can_join(struct Client *source_p, struct Channel *chptr, char *key)
     if((is_banned(chptr, source_p, NULL, src_host, src_iphost)) == CHFL_BAN)
         return (ERR_BANNEDFROMCHAN);
 
-    rb_snprintf(text, sizeof(text), "K%s", source_p->id);
+    snprintf(text, sizeof(text), "K%s", source_p->id);
 
     DICTIONARY_FOREACH(md, &iter, chptr->metadata) {
         if(!strcmp(md->value, "KICKNOREJOIN") && !strcmp(md->name, text) && (md->timevalue + 2 > rb_current_time()))

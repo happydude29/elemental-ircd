@@ -80,7 +80,7 @@ verify_logfile_access(const char *filename)
     rb_free(d);
 
     if(access(dirname, F_OK) == -1) {
-        rb_snprintf(buf, sizeof(buf), "WARNING: Unable to access logfile %s - parent directory %s does not exist", filename, dirname);
+        snprintf(buf, sizeof(buf), "WARNING: Unable to access logfile %s - parent directory %s does not exist", filename, dirname);
         if(testing_conf || server_state_foreground)
             fprintf(stderr, "%s\n", buf);
         sendto_realops_snomask(SNO_GENERAL, L_ALL, "%s", buf);
@@ -89,7 +89,7 @@ verify_logfile_access(const char *filename)
 
     if(access(filename, F_OK) == -1) {
         if(access(dirname, W_OK) == -1) {
-            rb_snprintf(buf, sizeof(buf), "WARNING: Unable to access logfile %s - access to parent directory %s failed: %s",
+            snprintf(buf, sizeof(buf), "WARNING: Unable to access logfile %s - access to parent directory %s failed: %s",
                         filename, dirname, strerror(errno));
             if(testing_conf || server_state_foreground)
                 fprintf(stderr, "%s\n", buf);
@@ -99,7 +99,7 @@ verify_logfile_access(const char *filename)
     }
 
     if(access(filename, W_OK) == -1) {
-        rb_snprintf(buf, sizeof(buf), "WARNING: Access denied for logfile %s: %s", filename, strerror(errno));
+        snprintf(buf, sizeof(buf), "WARNING: Access denied for logfile %s: %s", filename, strerror(errno));
         if(testing_conf || server_state_foreground)
             fprintf(stderr, "%s\n", buf);
         sendto_realops_snomask(SNO_GENERAL, L_ALL, "%s", buf);
@@ -168,7 +168,7 @@ ilog(ilogfile dest, const char *format, ...)
     rb_vsnprintf(buf, sizeof(buf), format, args);
     va_end(args);
 
-    rb_snprintf(buf2, sizeof(buf2), "%s %s\n",
+    snprintf(buf2, sizeof(buf2), "%s %s\n",
                 smalldate(rb_current_time()), buf);
 
     if(fputs(buf2, logfile) < 0) {
@@ -261,7 +261,7 @@ smalldate(time_t ltime)
 
     lt = localtime(&ltime);
 
-    rb_snprintf(buf, sizeof(buf), "%d/%d/%d %02d.%02d",
+    snprintf(buf, sizeof(buf), "%d/%d/%d %02d.%02d",
                 lt->tm_year + 1900, lt->tm_mon + 1,
                 lt->tm_mday, lt->tm_hour, lt->tm_min);
 

@@ -82,7 +82,7 @@ rb_ctime(const time_t t, char *buf, size_t len)
         return (p);
     }
 
-    rb_snprintf(p, tlen, "%s %s %d %02u:%02u:%02u %d",
+    snprintf(p, tlen, "%s %s %d %02u:%02u:%02u %d",
                 s_weekdays[tp->tm_wday], s_month[tp->tm_mon],
                 tp->tm_mday, tp->tm_hour, tp->tm_min, tp->tm_sec, tp->tm_year + 1900);
     return (p);
@@ -106,7 +106,7 @@ rb_date(const time_t t, char *buf, size_t len)
         return (buf);
     }
 
-    rb_snprintf(buf, len, "%s %s %d %d -- %02u:%02u:%02u +00:00",
+    snprintf(buf, len, "%s %s %d %d -- %02u:%02u:%02u +00:00",
                 weekdays[gm->tm_wday], months[gm->tm_mon], gm->tm_mday,
                 gm->tm_year + 1900, gm->tm_hour, gm->tm_min, gm->tm_sec);
     return (buf);
@@ -184,7 +184,7 @@ rb_lib_version(void)
     static char version_info[512];
     char ssl_info[512];
     rb_get_ssl_info(ssl_info, sizeof(ssl_info));
-    rb_snprintf(version_info, sizeof(version_info), "libratbox version: %s - %s", libratbox_serno, ssl_info);
+    snprintf(version_info, sizeof(version_info), "libratbox version: %s - %s", libratbox_serno, ssl_info);
     return version_info;
 }
 

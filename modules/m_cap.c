@@ -345,7 +345,7 @@ cap_req(struct Client *source_p, const char *arg)
     if(EmptyString(arg))
         return;
 
-    buflen = rb_snprintf(buf, sizeof(buf), ":%s CAP %s ACK",
+    buflen = snprintf(buf, sizeof(buf), ":%s CAP %s ACK",
                          me.name, EmptyString(source_p->name) ? "*" : source_p->name);
 
     pbuf[0][0] = '\0';

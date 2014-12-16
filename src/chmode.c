@@ -140,7 +140,7 @@ construct_cflag_param_string(void)
 {
 
     *cflagsparaminfo = '\0';
-    rb_snprintf(cflagsparaminfo, sizeof cflagsparaminfo, "%s%sb%s%s%s%sklov%s%s",
+    snprintf(cflagsparaminfo, sizeof cflagsparaminfo, "%s%sb%s%s%s%sklov%s%s",
                 ConfigChannel.use_owner ? "y" : "",
                 ConfigChannel.use_admin ? "a" : "",
                 ConfigChannel.use_except ? "e" : "",

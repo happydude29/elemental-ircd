@@ -471,7 +471,7 @@ burst_modes_TS6(struct Client *client_p, struct Channel *chptr,
     int cur_len;
 
     cur_len = mlen = sprintf(buf, ":%s BMASK %ld %s %c :",
-                                me.id, (long) chptr->channelts, chptr->chname, flag);
+                             me.id, (long) chptr->channelts, chptr->chname, flag);
     t = buf + mlen;
 
     RB_DLINK_FOREACH(ptr, list->head) {
@@ -599,8 +599,8 @@ burst_TS6(struct Client *client_p)
             continue;
 
         cur_len = mlen = sprintf(buf, ":%s SJOIN %ld %s %s :", me.id,
-                                    (long) chptr->channelts, chptr->chname,
-                                    channel_modes(chptr, client_p));
+                                 (long) chptr->channelts, chptr->chname,
+                                 channel_modes(chptr, client_p));
 
         t = buf + mlen;
 
@@ -627,7 +627,7 @@ burst_TS6(struct Client *client_p)
             }
 
             sprintf(t, "%s%s ", find_channel_status(msptr, 1),
-                       use_id(msptr->client_p));
+                    use_id(msptr->client_p));
 
             cur_len += tlen;
             t += tlen;
@@ -839,7 +839,7 @@ server_estab(struct Client *client_p)
     hdata.target = client_p;
     call_hook(h_server_introduced, &hdata);
 
-    rb_snprintf(note, sizeof(note), "Server: %s", client_p->name);
+    snprintf(note, sizeof(note), "Server: %s", client_p->name);
     rb_note(client_p->localClient->F, note);
 
     /*
@@ -1107,7 +1107,7 @@ serv_connect(struct server_conf *server_p, struct Client *by)
         return 0;
     }
 
-    rb_snprintf(note, sizeof note, "Server: %s", server_p->name);
+    snprintf(note, sizeof note, "Server: %s", server_p->name);
     rb_note(F, note);
 
     /* Create a local client */
