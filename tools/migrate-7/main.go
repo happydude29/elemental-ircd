@@ -10,6 +10,8 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"os"
 )
 
 var (
@@ -28,4 +30,11 @@ var (
 
 func main() {
 	flag.Parse()
+
+	if *saveDataAction && *replayDataAction {
+		fmt.Println("Cannot choose both saving and replaying at the same time.\n")
+
+		flag.Usage()
+		os.Exit(2)
+	}
 }
