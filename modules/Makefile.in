@@ -57,6 +57,7 @@ CORE_SRCS = \
 
 TSRCS =                          \
   chm_nocolour.c \
+  chm_noctcp.c \
   m_accept.c \
   m_admin.c \
   m_away.c \
