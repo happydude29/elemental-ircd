@@ -40,40 +40,43 @@ static unsigned int mode_nocolour;
 static void chm_nocolour_process(hook_data_privmsg_channel *);
 
 mapi_hfn_list_av1 chm_nocolour_hfnlist[] = {
-	{ "privmsg_channel", (hookfn) chm_nocolour_process },
-	{ NULL, NULL }
+    { "privmsg_channel", (hookfn) chm_nocolour_process },
+    { NULL, NULL }
 };
 
 static void
 chm_nocolour_process(hook_data_privmsg_channel *data)
 {
-	/* don't waste CPU if message is already blocked */
-	if (data->approved)
-		return;
+    /* don't waste CPU if message is already blocked */
+    if (data->approved) {
+        return;
+    }
 
-	if (data->chptr->mode.mode & mode_nocolour)
-	{
-		rb_strlcpy(buf, data->text, sizeof buf);
-		strip_colour(buf);
+    struct membership *msptr = find_channel_membership(data->chptr, data->source_p);
 
-		data->text = buf;
-	}
+    if (data->chptr->mode.mode & mode_nocolour &&
+        (!ConfigChannel.exempt_cmode_c || !is_any_op(msptr))) {
+        rb_strlcpy(buf, data->text, sizeof buf);
+        strip_colour(buf);
+
+        data->text = buf;
+    }
 }
 
 static int
 _modinit(void)
 {
-	mode_nocolour = cflag_add('c', chm_simple);
-	if (mode_nocolour == 0)
-		return -1;
+    mode_nocolour = cflag_add('c', chm_simple);
+    if (mode_nocolour == 0)
+        return -1;
 
-	return 0;
+    return 0;
 }
 
 static void
 _moddeinit(void)
 {
-	cflag_orphan('c');
+    cflag_orphan('c');
 }
 
 DECLARE_MODULE_AV1(chm_nocolour, _modinit, _moddeinit, NULL, NULL, chm_nocolour_hfnlist, "$Revision$");
