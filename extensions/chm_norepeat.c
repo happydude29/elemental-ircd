@@ -32,7 +32,6 @@
 #include "chmode.h"
 #include "inline/stringops.h"
 
-static char buf[BUFSIZE];
 static unsigned int mode_norepeat;
 
 static void chm_norepeat_process(hook_data_privmsg_channel *);
@@ -54,7 +53,7 @@ chm_norepeat_process(hook_data_privmsg_channel *data)
         return;
     }
 
-    if(data->chptr->mode.mode & MODE_NOREPEAT) {
+    if(data->chptr->mode.mode & mode_norepeat) {
         rb_strlcpy(text2, data->text, BUFSIZE);
         strip_unprintable(text2);
         md = channel_metadata_find(data->chptr, "NOREPEAT");
